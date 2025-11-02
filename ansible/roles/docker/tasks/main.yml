@@ -1,0 +1,57 @@
+---
+# tasks file for docker
+- name: apt get-update
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: install ca-certificates curl
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - ca-certificates
+  - curl
+
+- name: create dir for 
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+
+
+- name: add gpg key 
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0444"
+
+- name: add apt repository 
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo {{ ansible_distribution_version:-ansible_distribution_version }}) stable"
+    state: present
+
+
+- name: install docker packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+  - docker-ce
+  - docker-ce-cli
+  - container.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+
+- name: Enable docker service
+  ansible.builtin.systemd_service:
+    name: docker
+    enabled: true
+  become: yes
+
+- name: Make sure docker is running
+  ansible.builtin.systemd_service:
+    state: started
+    name: docker

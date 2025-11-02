@@ -1,0 +1,6 @@
+name: Install docker
+hosts: servers
+gather_facts: yes
+become: yes
+tasks:
+  - docker

@@ -1,0 +1,5 @@
+name: install-java
+hosts: server
+gather_facts: yes
+roles:
+  - java
