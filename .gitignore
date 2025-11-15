@@ -4,3 +4,4 @@ venv
 nginx
 .env
 pipfile
+.vscode
