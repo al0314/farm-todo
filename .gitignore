@@ -5,3 +5,6 @@ nginx
 .env
 pipfile
 .vscode
+.ini
+.cfg
+*.log
