@@ -24,12 +24,13 @@ pipeline {
         stage('Test') {
             agent { label 'test'}
             steps {
-                sh 'python3 -m venv venv'
-                sh './venv/bin/activate && pip install -r requirements.txt'
-                sh ''' 
-                    export PYTHONPATH=$(pwd)
-                    ./venv/bin/pytest ./backend/src/tests/
-                '''
+                // sh 'python3 -m venv venv'
+                // sh './venv/bin/activate && pip install -r requirements.txt'
+                // sh ''' 
+                //     export PYTHONPATH=$(pwd)
+                //     ./venv/bin/pytest ./backend/src/tests/
+                // '''
+                sh ' pytest ./backend/src/tests/ '
             }
         }
         stage ('Build image') {
