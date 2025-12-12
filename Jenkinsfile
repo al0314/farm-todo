@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent any
     environment {
         DOCKER_IMAGE = "al0314/farm-todo"
         IMAGE_TAG = "${GIT_TAG_NAME}" // This was extracted from the webhook JSON
