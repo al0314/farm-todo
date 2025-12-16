@@ -24,13 +24,11 @@ pipeline {
         stage('Test') {
             agent { label 'test'}
             steps {
-                // sh 'python3 -m venv venv'
-                // sh './venv/bin/activate && pip install -r requirements.txt'
-                // sh ''' 
-                //     export PYTHONPATH=$(pwd)
-                //     ./venv/bin/pytest ./backend/src/tests/
-                // '''
-                sh ' pytest ./backend/src/tests/ '
+                sh ' scp -r vagrant@192.169.10.11:/var/lib/jenkins/workspace/farm-todo /opt/jenkins '
+                sh ' cd /opt/jenkins/farm-todo '
+                sh ' docker compose up -d --build '
+                sh ' docker exec -it farm-todo-backend '
+                sh ' pytest ./src/tests/ '
             }
         }
         stage ('Build image') {
