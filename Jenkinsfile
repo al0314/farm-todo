@@ -8,13 +8,14 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git branch: 'main', credentialsId: 'centos_id_rsa', url: 'https://github.com/al0314/farm-todo'
+                git branch: 'main', credentialsId: 'centos_ida_rsa', url: 'https://github.com/al0314/farm-todo'
             }
         }
         
         stage('Run') {
             steps {
                 sh 'ls -l' // or 'dir' on Windows
+                sh 'scp -r . vagrant@192.168.56.11:/opt/jenkins/'
             }
         }
         
