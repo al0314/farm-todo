@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent { label 'master'}
     environment {
         DOCKER_IMAGE = "al0314/farm-todo"
         IMAGE_TAG = "${GIT_TAG_NAME}" // This was extracted from the webhook JSON
@@ -24,7 +24,7 @@ pipeline {
         stage('Test') {
             agent { label 'test'}
             steps {
-                sh ' scp -r vagrant@192.169.10.11:/var/lib/jenkins/workspace/farm-todo /opt/jenkins '
+                sh ' scp -r vagrant@192.168.10.111:/var/lib/jenkins/workspace/farm-todo /opt/jenkins '
                 sh ' cd /opt/jenkins/farm-todo '
                 sh ' docker compose up -d --build '
                 sh ' docker exec -it farm-todo-backend '
