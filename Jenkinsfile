@@ -14,7 +14,7 @@ pipeline {
         
         stage('Run') {
             steps {
-                ssh-agent(['jenkins-master']) {
+                sshagent(['jenkins-master']) {
                     sh ' ls -l ' // or 'dir' on Windows
                     sh '''
                     whoami
