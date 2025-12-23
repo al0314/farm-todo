@@ -14,12 +14,15 @@ pipeline {
         
         stage('Run') {
             steps {
+                ssh-agent(['jenkins-master']) {
                 sh 'ls -l' // or 'dir' on Windows
                 sh '''
                 whoami
                 echo $HOME
                 '''
                 sh 'scp -r . vagrant@192.168.56.11:/var/lib/jenkins'
+                }
+                
             }
         }
         
