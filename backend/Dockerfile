@@ -1,4 +1,4 @@
-FROM python:3-slim
+FROM python:3.11-slim
 
 WORKDIR /usr/src/app/
 
@@ -7,7 +7,5 @@ COPY requirements.txt /usr/src/app/
 RUN pip install --no-cache-dir --upgrade -r ./requirements.txt
 
 EXPOSE 3001
-
-
 
 CMD ["python", "./src/server.py"]
